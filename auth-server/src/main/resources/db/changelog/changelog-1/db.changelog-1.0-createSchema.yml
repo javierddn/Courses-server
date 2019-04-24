@@ -1,0 +1,169 @@
+databaseChangeLog:
+  - changeSet:
+      id: createOAuth2Schema
+      author: javierdediego
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  type: varchar(50)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: username
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: authority
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: username
+            baseTableName: authorities
+            constraintName: fk_authorities_users
+            referencedColumnNames: username
+            referencedTableName: users
+        - createTable:
+            tableName: oauth_client_details
+            columns:
+              - column:
+                  name: client_id
+                  type: varchar(256)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: resource_ids
+                  type: varchar(256)
+              - column:
+                  name: client_secret
+                  type: varchar(256)
+              - column:
+                  name: scope
+                  type: varchar(256)
+              - column:
+                  name: authorized_grant_types
+                  type: varchar(256)
+              - column:
+                  name: web_server_redirect_uri
+                  type: varchar(256)
+              - column:
+                  name: authorities
+                  type: varchar(256)
+              - column:
+                  name: access_token_validity
+                  type: integer
+              - column:
+                  name: refresh_token_validity
+                  type: integer
+              - column:
+                  name: additional_information
+                  type: varchar(4096)
+              - column:
+                  name: autoapprove
+                  type: varchar(256)
+        - createTable:
+            tableName: oauth_client_token
+            columns:
+              - column:
+                  name: token_id
+                  type: varchar(256)
+              - column:
+                  name: token
+                  type: blob
+              - column:
+                  name: authentication_id
+                  type: varchar(256)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_name
+                  type: varchar(256)
+              - column:
+                  name: client_id
+                  type: varchar(256)
+        - createTable:
+            tableName: oauth_access_token
+            columns:
+              - column:
+                  name: token_id
+                  type: varchar(256)
+              - column:
+                  name: token
+                  type: blob
+              - column:
+                  name: authentication_id
+                  type: varchar(256)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_name
+                  type: varchar(256)
+              - column:
+                  name: client_id
+                  type: varchar(256)
+              - column:
+                  name: authentication
+                  type: blob
+              - column:
+                  name: refresh_token
+                  type: varchar(256)
+        - createTable:
+            tableName: oauth_refresh_token
+            columns:
+              - column:
+                  name: token_id
+                  type: varchar(256)
+              - column:
+                  name: token
+                  type: blob
+              - column:
+                  name: authentication
+                  type: blob
+        - createTable:
+            tableName: oauth_code
+            columns:
+              - column:
+                  name: code
+                  type: varchar(256)
+              - column:
+                  name: authentication
+                  type: blob
+        - createTable:
+            tableName: oauth_approvals
+            columns:
+              - column:
+                  name: userId
+                  type: varchar(256)
+              - column:
+                  name: clientId
+                  type: varchar(256)
+              - column:
+                  name: scope
+                  type: varchar(256)
+              - column:
+                  name: status
+                  type: varchar(10)
+              - column:
+                  name: expiresAt
+                  type: timestamp
+              - column:
+                  name: lastModifiedAt
+                  type: timestamp

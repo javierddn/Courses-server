@@ -1,0 +1,80 @@
+databaseChangeLog:
+  - changeSet:
+      id: insertOauth2User
+      author: javierdediego
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user
+              - column:
+                  name: password
+                  value: $2a$10$j3S1cnYA3/WbeeoyACqPAeLop0IQ2SNNNAAdGdqeNvCbF9GHyJZ.i
+              - column:
+                  name: enabled
+                  value: true
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: username
+                  value: user
+              - column:
+                  name: authority
+                  value: ROLE_USER
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: password
+                  value: $2a$04$I9Q2sDc4QGGg5WNTLmsz0.fvGv3OjoZyj81PrSFyGOqMphqfS2qKu
+              - column:
+                  name: enabled
+                  value: true
+        - insert:
+            tableName: authorities
+            columns:
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: authority
+                  value: ROLE_ADMIN
+        - insert:
+            tableName: oauth_client_details
+            columns:
+              - column:
+                  name: client_id
+                  value: courses
+              - column:
+                  name: client_secret
+                  value: $2a$10$PZIeyVp.RwqRERuEfKemEeGhd9iU2wi.KR8V0EqFWvM18sczRxtDu
+              - column:
+                  name: scope
+                  value: user_info,foo,read,write,trust
+              - column:
+                  name: authorized_grant_types
+                  value: authorization_code,password,refresh_token
+              - column:
+                  name: web_server_redirect_uri
+                  value: http://localhost:8001/login
+              - column:
+                  name: authorities
+                  value: ROLE_CLIENT,ROLE_TRUSTED_CLIENT
+              - column:
+                  name: access_token_validity
+                  value: 36000
+              - column:
+                  name: refresh_token_validity
+                  value: 36000
+              - column:
+                  name: additional_information
+                  value: null
+              - column:
+                  name: autoapprove
+                  value: true

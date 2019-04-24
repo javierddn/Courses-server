@@ -1,0 +1,60 @@
+constants:
+  auth-server:
+    port: 8000
+    hostname: localhost
+    accessTokenUri: http://${constants.auth-server.hostname}:${constants.auth-server.port}/oauth/token
+    userAuthorizationUri: http://${constants.auth-server.hostname}:${constants.auth-server.port}/oauth/authorize
+    userInfoUri: http://${constants.auth-server.hostname}:${constants.auth-server.port}/user/me
+
+server:
+  port: 8001
+  servlet:
+    session:
+      cookie:
+        name: UI2SESSION
+
+security:
+  oauth2:
+    client:
+      clientId: @project.artifactId@
+      clientSecret: secret
+      accessTokenUri: ${constants.auth-server.accessTokenUri}
+      userAuthorizationUri: ${constants.auth-server.userAuthorizationUri}
+    resource:
+      userInfoUri: ${constants.auth-server.userInfoUri}
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: user
+    password: pwd
+    url: jdbc:h2:mem:default;
+  thymeleaf:
+    cache: false
+
+#mybatis:
+#  type-aliases-package: com.eagerminds.courses.model
+
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+info:
+  build:
+    artifactId: ${project.artifactId}
+    name: ${project.name}
+    description: ${project.description}
+    version: ${project.version}
+
+logging:
+  level:
+    liquibase: INFO
+    org:
+      springframework:
+        security: DEBUG

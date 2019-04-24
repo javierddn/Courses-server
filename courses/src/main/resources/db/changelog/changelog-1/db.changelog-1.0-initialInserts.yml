@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: insertTeachers
+      author: javierdediego
+      changes:
+        - insert:
+            tableName: teachers
+            columns:
+              - column:
+                  name: first_name
+                  value: teacher1
+              - column:
+                  name: last_name
+                  value: García
+        - insert:
+            tableName: teachers
+            columns:
+              - column:
+                  name: first_name
+                  value: teacher2
+              - column:
+                  name: last_name
+                  value: De Diego

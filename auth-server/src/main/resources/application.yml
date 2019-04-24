@@ -1,0 +1,35 @@
+server:
+  port: 8000
+
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: user
+    password: pwd
+
+info:
+  build:
+    artifactId: ${project.artifactId}
+    name: ${project.name}
+    description: ${project.description}
+    version: ${project.version}
+
+logging:
+  level:
+    liquibase: INFO
+    org:
+      springframework:
+        security: DEBUG
