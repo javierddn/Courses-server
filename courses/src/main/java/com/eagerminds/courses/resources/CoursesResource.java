@@ -2,6 +2,7 @@ package com.eagerminds.courses.resources;
 
 import com.eagerminds.courses.model.Course;
 import com.eagerminds.courses.services.CourseService;
+import com.eagerminds.courses.types.OrderType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -30,8 +32,8 @@ public class CoursesResource {
     }
 
     @GET
-    public Response getAllCourses() {
-        return Response.ok(courseService.getAllCourses()).build();
+    public Response getAllCourses(@QueryParam("order") OrderType orderType) {
+        return Response.ok(courseService.getAllCourses(true, orderType)).build();
     }
 
     @GET

@@ -4,6 +4,7 @@ import com.eagerminds.courses.mappers.CourseMapper;
 import com.eagerminds.courses.mappers.TeacherMapper;
 import com.eagerminds.courses.model.Course;
 import com.eagerminds.courses.model.Teacher;
+import com.eagerminds.courses.types.OrderType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,8 +36,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getAllCourses() {
-        return courseMapper.getAll();
+    public List<Course> getAllCourses(Boolean enabled, OrderType orderType) {
+        return courseMapper.getAll(enabled, orderType);
     }
 
     @Override

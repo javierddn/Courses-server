@@ -7,15 +7,14 @@ import lombok.Getter;
 @Getter
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @JsonPropertyOrder({"name", "description"})
-public enum LevelType {
+public enum OrderType {
 
-    BASIC("Básico"),
-    INTERMEDIATE("Intermedio"),
-    ADVANCED("Avanzado");
+    ASC("Ascendente"),
+    DESC("Descendente");
 
     private String description;
 
-    LevelType(String description) {
+    OrderType(String description) {
         this.description = description;
     }
 

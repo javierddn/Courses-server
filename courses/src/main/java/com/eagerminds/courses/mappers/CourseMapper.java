@@ -1,6 +1,7 @@
 package com.eagerminds.courses.mappers;
 
 import com.eagerminds.courses.model.Course;
+import com.eagerminds.courses.types.OrderType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -19,16 +20,21 @@ public interface CourseMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     void create(Course course);
 
-    @Select("SELECT " 
-                + "c.id AS id, " 
-                + "c.title AS title, " 
+    @Select("<script>"
+            + "SELECT "
+                + "c.id AS id, "
+                + "c.title AS title, "
                 + "t.id AS teacher_id, "
                 + "t.first_name AS teacher_first_name, "
                 + "t.last_name AS teacher_last_name, "
-                + "c.level AS level, " 
-                + "c.duration AS duration, " 
-                + "c.active AS active " 
-            + "FROM courses AS c, teachers AS t WHERE c.teacher = t.id")
+                + "c.level AS level, "
+                + "c.duration AS duration, "
+                + "c.active AS active "
+            + "FROM courses AS c, teachers AS t "
+            + "WHERE c.teacher = t.id"
+            + "<if test='enabled != null'> AND c.active = true</if>"
+            + "<if test='orderType != null'> ORDER BY title ${orderType}</if>"
+            + "</script>")
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "title", column = "title"),
@@ -39,7 +45,7 @@ public interface CourseMapper {
             @Result(property = "duration", column = "duration"),
             @Result(property = "active", column = "active"),
     })
-    List<Course> getAll();
+    List<Course> getAll(Boolean enabled, OrderType orderType);
 
     @Select("SELECT "
             + "c.id AS id, "

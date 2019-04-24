@@ -17,8 +17,8 @@ public class CoursesSecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated();
 //        http.antMatcher("/**")
 //            .authorizeRequests()
-//            .antMatchers("/rest/**").hasRole("USER")
-//            .antMatchers("/rest/admin").hasRole("ADMIN")
+        //            .antMatchers(HttpMethod.GET, "/rest/**").hasAnyRole("ADMIN", "USER")
+        //            .antMatchers(HttpMethod.POST, "/rest/**").hasRole("ADMIN")
 //            .antMatchers("/", "/login**").permitAll()
 //            .anyRequest().authenticated();
     }
